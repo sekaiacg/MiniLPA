@@ -79,8 +79,8 @@ sealed class Manifest<T : Any>
 
 data object EumManifest : Manifest<EumManifest.Manufacturer>()
 {
-    override val path = "eum-manifest.json"
-    override val updateURL = "https://euicc-manual.osmocom.org/docs/pki/eum/manifest.json"
+    override val path = "eum-manifest-v2.json"
+    override val updateURL = "https://euicc-manual.osmocom.org/docs/pki/eum/manifest-v2.json"
     val eums = data
 
     override fun loadManifest() = loadManifest0<Manufacturer>()
@@ -90,12 +90,14 @@ data object EumManifest : Manifest<EumManifest.Manufacturer>()
         val eum : String,
         val country : String,
         val manufacturer : String,
-        val products : List<Product> = emptyList()
+        val products : List<Product>? = null
     )
     {
         @Serializable
         data class Product(
-            val pattern : String,
+            val prefix : String,
+            @SerialName("in-range")
+            val inRange : List<List<Int>>? = null,
             val name : String,
             val chip : String? = null
         )
@@ -112,11 +114,15 @@ data object EumManifest : Manifest<EumManifest.Manufacturer>()
 
     fun findProduct(eum : Manufacturer, eid : String) : Manufacturer.Product?
     {
-        val path = Path(eid)
-        for (product in eum.products)
-        {
-            val matcher = FileSystems.getDefault().getPathMatcher("glob:${product.pattern}")
-            if (matcher.matches(path)) return product
+        eum.products?.forEach { p ->
+            if (eid.startsWith(p.prefix)) {
+                if (p.inRange != null) {
+                    p.inRange.forEach { ir ->
+                        val eidNum = eid.substring(p.prefix.length, eid.length - 2).toInt()
+                        if (eidNum in ir[0]..ir[1]) return p
+                    }
+                } else return p
+            }
         }
         return null
     }
