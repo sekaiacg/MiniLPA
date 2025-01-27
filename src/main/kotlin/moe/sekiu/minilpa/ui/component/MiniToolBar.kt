@@ -31,7 +31,7 @@ open class MiniToolBar : JToolBar()
     }.apply {
         toolTipText = language.`device-selector`
         isFocusable = false
-        preferredSize = Dimension(180,  27)
+        preferredSize = Dimension(220,  27)
     }
 
     fun createDevicesOperation() = JButton().apply {

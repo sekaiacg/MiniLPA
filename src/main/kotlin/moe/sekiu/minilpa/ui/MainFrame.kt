@@ -58,8 +58,8 @@ class MainFrame : JFrame()
         title = "MiniLPA"
         iconImages = FlatSVGUtils.createWindowIconImages("/icons/window.svg")
         defaultCloseOperation = EXIT_ON_CLOSE
-        minimumSize = Dimension(780, 600)
-        size = Dimension(780, 600)
+        minimumSize = Dimension(880, 600)
+        size = Dimension(880, 600)
         setLocationRelativeTo(null)
         boot()
         addComponentListener(object : ComponentAdapter()

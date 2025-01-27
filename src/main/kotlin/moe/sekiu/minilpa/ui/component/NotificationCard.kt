@@ -53,7 +53,7 @@ class NotificationCard(val notification : Notification) : JButton()
 
     init
     {
-        preferredSize = Dimension(620, 110)
+        preferredSize = Dimension(720, 110)
         layout = MigLayout(
             "fillY",
             "[]20[]"

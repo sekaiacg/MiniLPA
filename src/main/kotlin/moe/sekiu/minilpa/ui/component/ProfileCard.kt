@@ -76,7 +76,7 @@ class ProfileCard(val profile : Profile) : JButton()
             "[]20[]",
         )
         this.isProfileEnabled = profile.state == Profile.State.ENABLED
-        preferredSize = Dimension(305, 110)
+        preferredSize = Dimension(355, 110)
         val profileIcon = ProfileIcon(profile.icon)
         val nickname = MiniEmojiLabel(profile.nickname ?: language.`empty-tag`)
         nickname.putClientProperty(FlatClientProperties.STYLE_CLASS, "h3")
@@ -91,7 +91,7 @@ class ProfileCard(val profile : Profile) : JButton()
         switchIccidMask(LocalProfileAssistant.showDetails.isSelected)
 
         add("cell 0 0 1 3", profileIcon)
-        add("cell 1 0, wmax 160", nickname)
+        add("cell 1 0, wmax 190", nickname)
         add("cell 1 0", nicknameEdit)
         add("cell 1 1", JLabel(profile.serviceProviderName))
         add("cell 1 2", iccidLabel)

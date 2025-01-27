@@ -45,7 +45,7 @@ class SettingPanel : MiniPanel()
 {
     init
     {
-        layout = MigLayout("wrap 1, fillX")
+        layout = MigLayout("wrap 1, fillX, insets 10")
         separator(language.about)
         add(AboutPanel())
         separator(language.language)

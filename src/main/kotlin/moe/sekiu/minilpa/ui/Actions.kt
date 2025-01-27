@@ -279,7 +279,7 @@ object Actions
             certificateIssuersPanel.layout = wrapLayout
             CIManifest.findCIs(euiccInfo2).forEach { certificateIssuersPanel.add(CertificateIssuerCard(it)) }
             val certificateIssuersDialog = JOptionPane(JScrollPane(certificateIssuersPanel).setup(), JOptionPane.PLAIN_MESSAGE).createDialog(mainFrame, language.`certificate-issuers`)
-            certificateIssuersDialog.size = Dimension(600, 500)
+            certificateIssuersDialog.size = Dimension(650, 500)
             certificateIssuersDialog.setLocationRelativeTo(mainFrame)
             certificateIssuersDialog.isVisible = true
         }

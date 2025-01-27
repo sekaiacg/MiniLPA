@@ -35,7 +35,7 @@ class ProfileList : JPanel()
         wrapLayout.hgap = 10
         wrapLayout.alignOnBaseline = true
         layout = wrapLayout
-        size = Dimension(500, 500)
+        size = Dimension(550, 500)
     }
 
     fun switchProfileIccidMask(show : Boolean) { cards.forEach { it.switchIccidMask(show) } }
