@@ -199,12 +199,12 @@ object LocalProfileAssistant
         } }
     }
 
-    fun setProfileNickname(iccid : String, nickname : String)
+    fun setProfileNickname(iccid : String, nickname : String, nicknameSize : String)
     {
         GlobalScope.launch { mainFrame.freezeWithTimeout {
             mainFrame.progressBar.stage = 3
             mainFrame.progressInfo.text = language.`edit-nickname`
-            backend.setProfileNickname(iccid, nickname)
+            backend.setProfileNicknameBySize(iccid, nickname, nicknameSize)
             mainFrame.progressBar.swipePlusAuto()
             mainFrame.progressInfo.text = language.`profile-get-list`
             ProfileList.instance.refreshProfileData()

@@ -1,6 +1,7 @@
 package moe.sekiu.minilpa.ui
 
 import com.formdev.flatlaf.FlatClientProperties
+import io.ktor.utils.io.charsets.forName
 import java.awt.Component
 import java.awt.Container
 import java.awt.Dimension
@@ -43,6 +44,7 @@ import moe.sekiu.minilpa.ui.component.NotificationList
 import moe.sekiu.minilpa.ui.component.NotificationToolBar
 import moe.sekiu.minilpa.ui.component.ProfileToolBar
 import net.miginfocom.swing.MigLayout
+import kotlin.io.encoding.Base64
 
 
 object Actions
@@ -179,7 +181,12 @@ object Actions
                 null,
                 oldNickname
             ) as String?
-            if (result != null && result != (oldNickname ?: "")) LocalProfileAssistant.setProfileNickname(iccid, result)
+            if (result != null && result != (oldNickname ?: "")) {
+                val nicknameBytes = result.toByteArray(Charsets.forName(setting.`nickname-charset`))
+                val nicknameSize = nicknameBytes.size.toString()
+                val newNickname = Base64.Default.encode(nicknameBytes).toString()
+                LocalProfileAssistant.setProfileNickname(iccid, newNickname, nicknameSize)
+            }
         }
 
         fun toNotification(iccid : String)

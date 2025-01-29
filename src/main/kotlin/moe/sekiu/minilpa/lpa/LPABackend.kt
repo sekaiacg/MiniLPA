@@ -22,6 +22,8 @@ interface LPABackend<D : Device>
 
     suspend fun setProfileNickname(iccid : String, nickname : String)
 
+    suspend fun setProfileNicknameBySize(iccid : String, nickname : String, nicknameSize : String)
+
     suspend fun getNotificationList() : List<Notification>
 
     suspend fun processNotification(vararg seq : Int, remove : Boolean = false)

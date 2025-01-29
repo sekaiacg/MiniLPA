@@ -31,6 +31,7 @@ data class Setting(
     var `emoji-design` : EmojiDesign = EmojiDesign.TWEMOJI,
     var `auto-night-mode` : AutoNightMode = AutoNightMode.SYSTEM,
     val debug : Debug = Debug(),
+    var `nickname-charset` : String = "UTF-8",
     val lpac : Lpac = Lpac(),
     val `notification-behavior` : NotificationBehavior = NotificationBehavior(),
     var `show-details` : Boolean = true,

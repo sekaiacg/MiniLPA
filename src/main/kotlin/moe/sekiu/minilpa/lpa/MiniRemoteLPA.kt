@@ -87,6 +87,8 @@ class MiniRemoteLPA : LPABackend<RemoteCard>
 
     override suspend fun deleteProfile(iccid : String) = waitingResult(execute("profile", "delete", iccid)).drop()
 
+    override suspend fun setProfileNicknameBySize(iccid : String, nickname : String, nicknameSize : String) = waitingResult(execute("profile", "nickname", iccid, nickname, nicknameSize)).drop()
+
     override suspend fun setProfileNickname(iccid : String, nickname : String) = waitingResult(execute("profile", "nickname", iccid, nickname)).drop()
 
     override suspend fun getNotificationList() : List<Notification> = decode(waitingResult(execute("notification", "list")).data)

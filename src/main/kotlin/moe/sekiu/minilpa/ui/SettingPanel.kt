@@ -218,6 +218,18 @@ class SettingPanel : MiniPanel()
             dataModel.selectedItem = setting.backend
             val backendSelector = JComboBox(dataModel).noFocus()
             add(MiniGroup(JLabel("${language.backend}:"), backendSelector))
+
+            val nicknameCharsetItems = arrayOf("UTF-8", "SCGSM")
+            val nicknameCharsetSelector = JComboBox<String>()
+            for (nci in nicknameCharsetItems) {
+                nicknameCharsetSelector.addItem(nci)
+            }
+            nicknameCharsetSelector.selectedItem = setting.`nickname-charset`
+            nicknameCharsetSelector.addActionListener {
+                setting.update { `nickname-charset` = nicknameCharsetSelector.selectedItem.cast<String>() }
+            }
+            add(MiniGroup(JLabel("${language.`nickname-charset`}:"), nicknameCharsetSelector))
+
             add(lpacPanel, "hidemode 3")
             add(remoteLPAPanel, "hidemode 3")
         }

@@ -113,6 +113,7 @@ data class Language @JvmOverloads constructor(
     val `open-latest-log` : String = "Open Latest Log",
     val `open-log-floder` : String = "Open Log Folder",
     val backend : String = "Backend",
+    val `nickname-charset` : String = "Nickname Charset",
     val `lpac-version` : String = "lpac Version: %s",
     val `open-lpac-folder` : String = "Open lpac Folder",
     val reset : String = "Reset",

@@ -87,6 +87,7 @@ dependencies {
     implementation("com.twelvemonkeys.imageio:imageio-tiff-jdk-interop:3.11.0")
     implementation("com.twelvemonkeys.imageio:imageio-tiff-jai-interop:3.11.0")
     implementation("com.twelvemonkeys.imageio:imageio-jpeg-jep262-interop:3.11.0")
+    implementation("net.freeutils:jcharset:2.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
@@ -149,7 +150,7 @@ val githubToken = project.findProperty("github-token")?.toString()
 
 val latestRelease : GHRelease by lazy {
     val gitHub = if (githubToken != null) GitHub.connectUsingOAuth(githubToken) else GitHub.connectAnonymously()
-    val repository = gitHub.getRepository("estkme-group/lpac")
+    val repository = gitHub.getRepository("sekaiacg/lpac")
     repository.latestRelease
 }
 

@@ -41,6 +41,14 @@ class LPACExecutor() : LPABackend<Driver>
 
     override suspend fun deleteProfile(iccid : String) = execute("profile", "delete", iccid).drop()
 
+    override suspend fun setProfileNicknameBySize(iccid : String, nickname : String, nicknameSize : String) = execute(
+        "profile",
+        "nickname",
+        iccid,
+        nickname,
+        nicknameSize
+    ).drop()
+
     override suspend fun setProfileNickname(iccid : String, nickname : String) = execute(
         "profile",
         "nickname",

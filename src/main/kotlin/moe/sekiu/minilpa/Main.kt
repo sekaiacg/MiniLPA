@@ -29,6 +29,7 @@ import moe.sekiu.minilpa.model.Manifest
 import moe.sekiu.minilpa.model.Setting
 import moe.sekiu.minilpa.ui.MainFrame
 import moe.sekiu.minilpa.ui.component.MiniThemePanel
+import net.freeutils.charset.CharsetProvider
 import org.apache.commons.lang3.SystemUtils
 import org.slf4j.LoggerFactory
 
@@ -68,6 +69,7 @@ fun main()
         setupIconColorFilter()
         backend = LPACExecutor()
         MainFrame()
+        CharsetProvider().charsetForName("SCGSM")
         mainFrame.isVisible = true
     } catch (th : Throwable) { log.error("We have encountered an error", th) }
 }
