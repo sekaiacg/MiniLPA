@@ -19,6 +19,7 @@ import moe.sekiu.minilpa.bufferedResourceStream
 import moe.sekiu.minilpa.cast
 import moe.sekiu.minilpa.json
 import moe.sekiu.minilpa.language
+import moe.sekiu.minilpa.model.ChipInfo.EuiccInfo2Lite
 import moe.sekiu.minilpa.openLink
 import moe.sekiu.minilpa.setting
 
@@ -101,6 +102,41 @@ data object EumManifest : Manifest<EumManifest.Manufacturer>()
             val name : String,
             val chip : String? = null
         )
+    }
+
+    fun get9eSIMV2orAboveProduct(eID : String, euiccInfo2 : JsonObject) : Manufacturer.Product? {
+        val v2eIDPrefix = "890440452167274948"
+        val v3eIDPrefix = "890440458467274948"
+        var ver = ""
+        if (!(eID.startsWith(v2eIDPrefix) || eID.startsWith(v3eIDPrefix))) return null
+        val split = json.decodeFromJsonElement<EuiccInfo2Lite>(euiccInfo2).euiccFirmwareVer.split('.')
+        val verCode = StringBuilder()
+        if (split.isNotEmpty()) {
+            for (e in split) {
+                if (e.length < 2) {
+                    verCode.append("0".repeat(2 - e.length)).append(e)
+                } else {
+                    verCode.append(e)
+                }
+            }
+        }
+        /**
+         * 36.7.2 = v2
+         * 36.9.3 = v2.1
+         * 36.17.4 = v2s
+         * 36.17.39 = v3 Beta(Test) (v3 測試)
+         * 36.18.5 = v3 Final (v3 最終) 視為發售版
+         */
+        val verInt = verCode.toString().toInt()
+        ver = when  {
+            verInt >= 361805 -> "9eSIM V3"
+            verInt >= 361739 -> "9eSIM V3 Beta"
+            verInt >= 361704 -> "9eSIM V2S"
+            verInt >= 360903 -> "9eSIM V2.1"
+            verInt in 0..360702 -> "9eSIM V2"
+            else -> ""
+        }
+        return if (ver.isNotEmpty()) Manufacturer.Product("", null, ver, null) else null
     }
 
     fun findEum(eid : String) : Manufacturer?

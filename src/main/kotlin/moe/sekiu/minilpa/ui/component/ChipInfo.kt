@@ -64,7 +64,8 @@ class ChipInfo(var chipInfo : ChipInfo) : JPanel()
             manufacturer = eum.manufacturer
             countryFlag.icon = ImageIcon(eum.country.toCountryFlagImage().resize(20, 20), eum.country.uppercase())
             countryFlag.toolTipText = eum.country.uppercase()
-            val product = EumManifest.findProduct(eum, chipInfo.eid)
+            val product = EumManifest.get9eSIMV2orAboveProduct(chipInfo.eid, chipInfo.eUICCInfo2)
+            if (product == null) EumManifest.findProduct(eum, chipInfo.eid)
             if (product != null)
             {
                 manufacturer += " (${product.name})"

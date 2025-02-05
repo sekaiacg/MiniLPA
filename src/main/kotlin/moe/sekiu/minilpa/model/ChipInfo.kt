@@ -22,6 +22,7 @@ data class ChipInfo(
 
     @Serializable
     data class EuiccInfo2Lite(
+        val euiccFirmwareVer : String,
         val extCardResource : ExtCardResource,
         val euiccCiPKIdListForVerification : Set<String>,
         val euiccCiPKIdListForSigning : Set<String>
